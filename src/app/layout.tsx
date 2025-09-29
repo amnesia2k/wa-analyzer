@@ -12,7 +12,9 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
-const sofia = Sofia_Sans();
+const sofia = Sofia_Sans({
+  subsets: ["latin"],
+});
 
 export default function RootLayout({
   children,
