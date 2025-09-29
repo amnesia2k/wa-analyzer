@@ -123,7 +123,7 @@ export default function HomePage() {
   };
 
   return (
-    <main className="bg-background flex min-h-screen items-center justify-center p-4">
+    <main className="bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8">
         <div className="flex gap-x-5">
           <HistorySheet />
