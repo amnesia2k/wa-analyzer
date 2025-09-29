@@ -45,7 +45,7 @@ export default function HomePage() {
       selectedFile.name.endsWith(".txt")
     ) {
       setFile(selectedFile);
-      toast.success("File ready for analysis"); // ✅ added
+      toast.success("File ready for analysis");
     } else if (
       selectedFile.type === "application/zip" ||
       selectedFile.name.endsWith(".zip")
@@ -59,16 +59,21 @@ export default function HomePage() {
 
       if (txtFileEntry && zipContent.files[txtFileEntry]) {
         const blob = await zipContent.files[txtFileEntry].async("blob");
-        const extractedFile = new File([blob], txtFileEntry, {
+
+        // ✅ Rename to match Android style: "WhatsApp Chat with NAME.txt"
+        const zipBaseName = selectedFile.name.replace(/\.zip$/i, "");
+        const extractedFileName = `WhatsApp Chat with ${zipBaseName.replace(/^WhatsApp Chat - /i, "")}.txt`;
+
+        const extractedFile = new File([blob], extractedFileName, {
           type: "text/plain",
         });
         setFile(extractedFile);
-        toast.success("Extracted .txt file from zip"); // ✅ added
+        toast.success("Extracted and renamed .txt file from zip");
       } else {
-        toast.error("No .txt file found inside the zip"); // ✅ replaced alert
+        toast.error("No .txt file found inside the zip");
       }
     } else {
-      toast.error("Please select a .txt or .zip file"); // ✅ replaced alert
+      toast.error("Please select a .txt or .zip file");
     }
   }, []);
 

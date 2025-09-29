@@ -13,6 +13,7 @@ import { useChatStore } from "@/lib/store";
 import { toast } from "sonner";
 import { formatName } from "@/lib/helper";
 import { forwardRef, useImperativeHandle, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export interface HistorySheetHandle {
   open: () => void;
@@ -21,6 +22,7 @@ export interface HistorySheetHandle {
 const HistorySheet = forwardRef<HistorySheetHandle>((_, ref) => {
   const { history, loadHistoryItem, deleteHistoryItem } = useChatStore();
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   useImperativeHandle(ref, () => ({
     open: () => setOpen(true),
@@ -47,7 +49,8 @@ const HistorySheet = forwardRef<HistorySheetHandle>((_, ref) => {
                 key={item.fileName}
                 onClick={() => {
                   loadHistoryItem(item.fileName);
-                  setOpen(false); // ✅ close after selecting
+                  setOpen(false); // close sheet
+                  router.push("/results"); // navigate
                 }}
                 className="hover:bg-muted flex cursor-pointer items-center justify-between rounded-md border-b p-2 pb-2"
               >
