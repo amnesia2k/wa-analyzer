@@ -7,6 +7,8 @@ import { QueryProvider } from "./utils/query-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
+import { Analytics } from "@vercel/analytics/next";
+
 export const metadata: Metadata = {
   title: "WhatsApp Chat Analyzer",
   description:
@@ -32,6 +34,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Toaster richColors closeButton position="top-center" />
+            <Analytics />
             <Suspense fallback={null}>{children}</Suspense>
           </ThemeProvider>
         </body>
