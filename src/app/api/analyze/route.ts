@@ -196,6 +196,18 @@ export async function POST(req: NextRequest) {
         !word.includes("omitted>"),
     );
 
+    // ----- Word Cloud (top 20 most frequent words) -----
+    const wordCount = new Map<string, number>();
+
+    for (const word of cleanedWords) {
+      wordCount.set(word, (wordCount.get(word) ?? 0) + 1);
+    }
+
+    const sortedWords = Array.from(wordCount.entries())
+      .sort((a, b) => b[1] - a[1]) // sort by frequency
+      .slice(0, 20)
+      .map(([word]) => word);
+
     return NextResponse.json({
       allText,
       totalMessages,
@@ -204,7 +216,7 @@ export async function POST(req: NextRequest) {
       conversationStarters: starterArray,
       totalEmojis,
       topEmojis,
-      wordCloud: Array.from(new Set(cleanedWords)).slice(0, 20),
+      wordCloud: sortedWords,
       // aiInsights,
     });
   } catch (err) {

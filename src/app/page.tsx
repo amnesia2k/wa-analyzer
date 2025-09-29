@@ -7,11 +7,12 @@ import JSZip from "jszip";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Loader2, Check, CloudUpload } from "lucide-react";
-import HistorySheet from "@/components/history-sheet";
+// import HistorySheet from "@/components/history-sheet";
 import { useChatStore } from "@/lib/store";
 import { ModeToggle } from "@/components/mode-toggle";
 import { formatName } from "@/lib/helper";
 import { toast } from "sonner"; // ✅ added
+import HistorySheet from "@/components/history-sheet";
 
 export interface ChatStats {
   allText: string;
@@ -127,6 +128,7 @@ export default function HomePage() {
       <div className="w-full max-w-md space-y-8">
         <div className="flex gap-x-5">
           <HistorySheet />
+
           <ModeToggle />
         </div>
 
