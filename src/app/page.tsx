@@ -125,7 +125,7 @@ export default function HomePage() {
   return (
     <main className="bg-background flex min-h-screen items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8">
-        <div className="mt-6 flex gap-x-5">
+        <div className="flex gap-x-5">
           <HistorySheet />
           <ModeToggle />
         </div>
@@ -167,6 +167,20 @@ export default function HomePage() {
                 <p className="text-muted-foreground text-sm">
                   {(file.size / 1024).toFixed(1)} KB • Ready to analyze
                 </p>
+
+                {/* Remove file button */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="mt-3 cursor-pointer text-red-500 hover:text-red-600"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setFile(null);
+                    toast.error("File removed");
+                  }}
+                >
+                  Remove File
+                </Button>
               </div>
             ) : (
               <div>

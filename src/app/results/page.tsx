@@ -10,6 +10,9 @@ import {
   Zap,
   Heart,
   Smile,
+  Brain,
+  Sparkles,
+  Puzzle,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
@@ -240,7 +243,9 @@ export default function ResultsPage() {
             {/* Personality Insights */}
             <Card>
               <CardHeader>
-                <CardTitle>Personality Insights</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Brain className="h-4 w-4" /> Personality Insights
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 {isLoading ? (
@@ -261,7 +266,9 @@ export default function ResultsPage() {
             {/* Fun Facts */}
             <Card>
               <CardHeader>
-                <CardTitle>Fun Facts</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Sparkles className="h-4 w-4" /> Fun Facts
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 {isLoading ? (
@@ -279,7 +286,9 @@ export default function ResultsPage() {
             {/* Other Patterns */}
             <Card>
               <CardHeader>
-                <CardTitle>Other Patterns</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <Puzzle className="h-4 w-4" /> Other Patterns
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 {isLoading ? (
