@@ -181,6 +181,21 @@ export async function POST(req: NextRequest) {
     //       };
     //     }
 
+    const cleanedWords = allText.split(/\s+/).filter(
+      (word) =>
+        word.length > 1 && // ignore single letters
+        !word.startsWith("http") && // remove links
+        !word.startsWith("https") &&
+        !word.includes("://") && // remove urls without http prefix
+        !word.includes(".com") &&
+        !word.includes(".net") &&
+        !word.includes(".org") &&
+        !word.includes(".edu") &&
+        !word.includes(".dev") &&
+        !word.includes("<media") &&
+        !word.includes("omitted>"),
+    );
+
     return NextResponse.json({
       allText,
       totalMessages,
@@ -189,7 +204,7 @@ export async function POST(req: NextRequest) {
       conversationStarters: starterArray,
       totalEmojis,
       topEmojis,
-      wordCloud: Array.from(new Set(allText.split(/\s+/))).slice(0, 20),
+      wordCloud: Array.from(new Set(cleanedWords)).slice(0, 20),
       // aiInsights,
     });
   } catch (err) {

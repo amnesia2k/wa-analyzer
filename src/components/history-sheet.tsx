@@ -9,8 +9,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { History, Trash2 } from "lucide-react";
 import { useChatStore } from "@/lib/store";
+import { toast } from "sonner"; // ✅ added
 
 export default function HistorySheet() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function HistorySheet() {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="outline" className="cursor-pointer">
-          History
+          <History size={30} />
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-full max-w-sm">
@@ -57,6 +58,7 @@ export default function HistorySheet() {
                     onClick={(e) => {
                       e.stopPropagation();
                       deleteHistoryItem(item.fileName); // ✅ expects fileName
+                      toast.success(`Deleted "${name}" from history`); // ✅ added
                     }}
                   >
                     <Trash2 className="h-4 w-4" />

@@ -4,6 +4,8 @@ import { Sofia_Sans } from "next/font/google";
 import "./globals.css";
 import { Suspense } from "react";
 import { QueryProvider } from "./utils/query-provider";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "WhatsApp Chat Analyzer",
@@ -23,7 +25,15 @@ export default function RootLayout({
     <QueryProvider>
       <html lang="en" className={`${sofia.className}`}>
         <body>
-          <Suspense fallback={null}>{children}</Suspense>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Toaster richColors position="top-center" />
+            <Suspense fallback={null}>{children}</Suspense>
+          </ThemeProvider>
         </body>
       </html>
     </QueryProvider>
