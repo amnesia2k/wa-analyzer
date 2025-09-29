@@ -222,91 +222,106 @@ export default function ResultsPage() {
         {/* AI Insights */}
         <div className="space-y-6">
           <h2 className="text-xl font-semibold">AI Insights</h2>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {/* Connection Analysis */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Zap className="h-4 w-4" /> Connection Analysis
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {isLoading ? (
-                  <Skeleton className="h-4 w-full" />
-                ) : (
-                  <p className="text-muted-foreground text-sm">
-                    {displayAI?.connectionAnalysis}
-                  </p>
-                )}
-              </CardContent>
-            </Card>
 
-            {/* Personality Insights */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Brain className="h-4 w-4" /> Personality Insights
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {isLoading ? (
-                  <>
-                    <Skeleton className="mb-2 h-4 w-full" />
-                    <Skeleton className="h-4 w-3/4" />
-                  </>
-                ) : (
-                  <ul className="space-y-2 text-sm">
-                    {displayAI?.personalityInsights.map((insight, idx) => (
-                      <li key={idx}>{insight}</li>
-                    ))}
-                  </ul>
-                )}
-              </CardContent>
-            </Card>
+          {/* ✅ If not loading and no insights */}
+          {!isLoading && !displayAI ? (
+            <div className="flex flex-col items-center justify-center rounded-md border p-6 text-center">
+              <h3 className="text-lg font-semibold">AI Insights Unavailable</h3>
+              <p className="text-muted-foreground mt-2 text-sm">
+                We couldn’t load insights for this chat. Try refreshing the
+                page.
+              </p>
+              <Button onClick={() => router.refresh()} className="mt-4 gap-2">
+                Refresh Page
+              </Button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {/* Connection Analysis */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Zap className="h-4 w-4" /> Connection Analysis
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <Skeleton className="h-4 w-full" />
+                  ) : (
+                    <p className="text-muted-foreground text-sm">
+                      {displayAI?.connectionAnalysis}
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
 
-            {/* Fun Facts */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4" /> Fun Facts
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {isLoading ? (
-                  <Skeleton className="h-4 w-1/2" />
-                ) : (
-                  <ul className="space-y-2 text-sm">
-                    {displayAI?.funFacts.map((fact, idx) => (
-                      <li key={idx}>{fact}</li>
-                    ))}
-                  </ul>
-                )}
-              </CardContent>
-            </Card>
+              {/* Personality Insights */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Brain className="h-4 w-4" /> Personality Insights
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <>
+                      <Skeleton className="mb-2 h-4 w-full" />
+                      <Skeleton className="h-4 w-3/4" />
+                    </>
+                  ) : (
+                    <ul className="space-y-2 text-sm">
+                      {displayAI?.personalityInsights.map((insight, idx) => (
+                        <li key={idx}>{insight}</li>
+                      ))}
+                    </ul>
+                  )}
+                </CardContent>
+              </Card>
 
-            {/* Other Patterns */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Puzzle className="h-4 w-4" /> Other Patterns
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {isLoading ? (
-                  <>
-                    <Skeleton className="mb-2 h-4 w-full" />
-                    <Skeleton className="h-4 w-3/4" />
-                  </>
-                ) : (
-                  <ul className="space-y-2 text-sm">
-                    {displayAI?.otherPatterns.map((pattern, idx) => (
-                      <li key={idx}>{pattern}</li>
-                    ))}
-                  </ul>
-                )}
-              </CardContent>
-            </Card>
-          </div>
+              {/* Fun Facts */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4" /> Fun Facts
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <Skeleton className="h-4 w-1/2" />
+                  ) : (
+                    <ul className="space-y-2 text-sm">
+                      {displayAI?.funFacts.map((fact, idx) => (
+                        <li key={idx}>{fact}</li>
+                      ))}
+                    </ul>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Other Patterns */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Puzzle className="h-4 w-4" /> Other Patterns
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <>
+                      <Skeleton className="mb-2 h-4 w-full" />
+                      <Skeleton className="h-4 w-3/4" />
+                    </>
+                  ) : (
+                    <ul className="space-y-2 text-sm">
+                      {displayAI?.otherPatterns.map((pattern, idx) => (
+                        <li key={idx}>{pattern}</li>
+                      ))}
+                    </ul>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </div>
       </div>
     </main>

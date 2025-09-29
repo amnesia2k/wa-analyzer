@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import {
   Sheet,
   SheetContent,
@@ -11,15 +10,24 @@ import {
 import { Button } from "@/components/ui/button";
 import { History, Trash2 } from "lucide-react";
 import { useChatStore } from "@/lib/store";
-import { toast } from "sonner"; // ✅ added
+import { toast } from "sonner";
 import { formatName } from "@/lib/helper";
+import { forwardRef, useImperativeHandle, useState } from "react";
 
-export default function HistorySheet() {
-  const router = useRouter();
+export interface HistorySheetHandle {
+  open: () => void;
+}
+
+const HistorySheet = forwardRef<HistorySheetHandle>((_, ref) => {
   const { history, loadHistoryItem, deleteHistoryItem } = useChatStore();
+  const [open, setOpen] = useState(false);
+
+  useImperativeHandle(ref, () => ({
+    open: () => setOpen(true),
+  }));
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="outline" className="cursor-pointer">
           <History size={30} />
@@ -38,8 +46,8 @@ export default function HistorySheet() {
               <div
                 key={item.fileName}
                 onClick={() => {
-                  loadHistoryItem(item.fileName); // ✅ expects fileName
-                  router.push("/results");
+                  loadHistoryItem(item.fileName);
+                  setOpen(false); // ✅ close after selecting
                 }}
                 className="hover:bg-muted flex cursor-pointer items-center justify-between rounded-md border-b p-2 pb-2"
               >
@@ -57,10 +65,10 @@ export default function HistorySheet() {
                   className="shrink-0 text-red-500"
                   onClick={(e) => {
                     e.stopPropagation();
-                    deleteHistoryItem(item.fileName); // ✅ expects fileName
+                    deleteHistoryItem(item.fileName);
                     toast.success(
                       `Deleted "${formatName(item.fileName)}" from history`,
-                    ); // ✅ added
+                    );
                   }}
                 >
                   <Trash2 className="h-4 w-4" />
@@ -72,4 +80,7 @@ export default function HistorySheet() {
       </SheetContent>
     </Sheet>
   );
-}
+});
+
+HistorySheet.displayName = "HistorySheet";
+export default HistorySheet;
