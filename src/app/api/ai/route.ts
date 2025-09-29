@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 
     const rawText = response.text ?? "";
 
-    console.log("AI response:", rawText);
+    // console.log("AI response:", rawText);
 
     // Parse AI output safely with proper type
     const aiInsights: AIInsights = {

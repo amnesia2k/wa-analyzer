@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
       .join(" ")
       .toLowerCase();
 
-    console.log("ALL TEXT >>>", allText);
+    // console.log("ALL TEXT >>>", allText);
 
     // ----- AI Insights with Gemini -----
     // const ai = new GoogleGenAI({
